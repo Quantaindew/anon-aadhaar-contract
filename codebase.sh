@@ -9,7 +9,7 @@ echo "# Codebase Contents" > ../codebase.md
 # Add the tree structure to the file
 echo "## Project Structure" >> ../codebase.md
 echo '```' >> ../codebase.md
-tree -I "node_modules|dist" .. >> ../codebase.md
+tree -I "node_modules" .. >> ../codebase.md
 echo '```' >> ../codebase.md
 echo "" >> ../codebase.md
 
