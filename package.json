@@ -1,0 +1,17 @@
+{
+  "name": "anon-aadhaar-backend",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "startb": "bunx tsx index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@anon-aadhaar/core": "^2.4.0"
+  }
+}
