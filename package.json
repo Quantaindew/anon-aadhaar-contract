@@ -12,6 +12,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@anon-aadhaar/core": "^2.4.0"
+    "@anon-aadhaar/core": "^2.4.0",
+    "dotenv": "^16.4.5"
   }
 }

@@ -6,6 +6,13 @@ cd src
 # Start the codebase.md file
 echo "# Codebase Contents" > ../codebase.md
 
+# Add the tree structure to the file
+echo "## Project Structure" >> ../codebase.md
+echo '```' >> ../codebase.md
+tree -I "node_modules|dist" .. >> ../codebase.md
+echo '```' >> ../codebase.md
+echo "" >> ../codebase.md
+
 # Loop through all files in the directory and subdirectories
 find . -type f | while read -r file; do
     # Add file path

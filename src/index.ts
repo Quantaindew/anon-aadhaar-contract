@@ -1,7 +1,7 @@
 import {
   init,
   prove,
-  artifactUrls,
+  //artifactUrls,
   ArtifactsOrigin,
   generateArgs,
 } from "@anon-aadhaar/core";
@@ -10,7 +10,7 @@ import { certificate } from "./utils/certificate.js";
 import { qrCode } from "./utils/qr-code.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { promises as fs } from "fs"; // Import fs module
+//import { promises as fs } from "fs"; // Import fs module
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -61,7 +61,7 @@ async function joe() {
     console.log("Proof generated successfully:", anonAadhaarCore);
 
    // Write the anonAadhaarCore to a JSON file
-   await fs.writeFile("anonaadhaar.json", JSON.stringify(anonAadhaarCore, null, 2));
+   //await fs.writeFile("anonaadhaar.json", JSON.stringify(anonAadhaarCore, null, 2));
   console.log("anonAadhaarCore written to anonaadhaar.json");
 
     return anonAadhaarCore;
