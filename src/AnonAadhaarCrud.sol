@@ -5,7 +5,7 @@ import "../interfaces/IAnonAadhaar.sol";
 import "../interfaces/IAnonAadhaarCrud.sol";
 
 
-contract AnonAadhaarIdentity {
+contract AnonAadhaarCrud is IAnonAadhaarCrud {
     address public anonAadhaarVerifierAddr;
 
     struct User {

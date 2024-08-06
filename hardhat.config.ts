@@ -9,10 +9,10 @@ const config: HardhatUserConfig = {
       // This is date at which the test Aadhaar data was signed
       initialDate: '2019-03-08T05:13:20.000Z',
     },
-    // sepolia: {
-    //   url: `https://ethereum-sepolia.blockpi.network/v1/rpc/public	`,
-    //   accounts: [process.env.PRIVATE_KEY_SEPOLIA || ''],
-    // },
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${process.env.API_KEY_SEPOLIA}`,	
+      accounts: [process.env.PRIVATE_KEY_SEPOLIA || ''],
+    },
     // scrollSepolia: {
     //   url: `https://sepolia-rpc.scroll.io/`,
     //   accounts: [process.env.PRIVATE_KEY_SCROLL_SEPOLIA || ''],
