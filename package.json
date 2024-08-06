@@ -5,7 +5,8 @@
   "scripts": {
   "start": "npx tsx src/index.ts",
   "build": "tsc",
-  "serve": "node dist/index.js"
+  "serve": "node --watch dist/index.js",
+  "dev": "npx tsx watch src/index.ts"
 },
   "devDependencies": {
     "@types/bun": "latest",
