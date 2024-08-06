@@ -2,6 +2,8 @@
 pragma solidity ^0.8.19;
 
 import "../interfaces/IAnonAadhaar.sol";
+import "../interfaces/IAnonAadhaarCrud.sol";
+
 
 contract AnonAadhaarIdentity {
     address public anonAadhaarVerifierAddr;
