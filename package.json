@@ -51,6 +51,7 @@
     "typechain": "^8.2.0"
   },
   "dependencies": {
+    "@anon-aadhaar/contracts": "^2.4.0",
     "@anon-aadhaar/core": "^2.4.0"
   }
 }

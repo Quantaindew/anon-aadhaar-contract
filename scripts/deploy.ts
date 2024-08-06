@@ -31,16 +31,14 @@ async function main() {
 
   console.log(`AnonAadhaar contract deployed to ${_anonAadhaarAddress}`)
 
-  const anonAadhaarVote = await ethers.deployContract('AnonAadhaarVote', [
-    'Do you like this app?',
-    ['0', '1', '2', '3', '4', '5'],
-    _anonAadhaarAddress,
-  ])
+  const anonAadhaarCrud = await ethers.deployContract('AnonAadhaarCrud',[
+    _anonAadhaarAddress
+])
 
-  await anonAadhaarVote.waitForDeployment()
+  await anonAadhaarCrud.waitForDeployment()
 
   console.log(
-    `AnonAadhaarVote contract deployed to ${await anonAadhaarVote.getAddress()}`,
+    `AnonAadhaarCrud contract deployed to ${await anonAadhaarCrud.getAddress()}`,
   )
 }
 
