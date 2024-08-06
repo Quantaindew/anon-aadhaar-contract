@@ -3,7 +3,7 @@ import type { InitArgs } from "@anon-aadhaar/core";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { certificate } from "./certificate.js";
-
+import { writeFile } from "fs/promises";
 import { config } from "dotenv";
 config();
 
@@ -38,6 +38,8 @@ export async function generateProof(qrCode: string, signal: string) {
     });
     console.log("args", args);
     const anonAadhaarCore = await prove(args);
+    //
+    writeFile(join(__dirname, "proof.json"), JSON.stringify(anonAadhaarCore));
     return anonAadhaarCore;
   } catch (error) {
     console.error("An error occurred:", error);
