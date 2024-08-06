@@ -18,6 +18,7 @@ contract AnonAadhaarIdentity {
     event UserAdded(address indexed userAddress, uint256 nullifier);
 
     constructor(address _verifierAddr) {
+        // anonAadhaarVerifierAddr  should be the contract address
         anonAadhaarVerifierAddr = _verifierAddr;
     }
 
