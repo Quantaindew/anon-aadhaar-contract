@@ -86,4 +86,3 @@ contract AnonAadhaarIdentity {
         
 
     }
-}
