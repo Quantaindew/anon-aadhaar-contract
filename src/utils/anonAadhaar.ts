@@ -22,7 +22,7 @@ export async function generateProof(qrCode: string, signal: string) {
   try {
     await init(anonAadhaarInitArgs);
 
-    const nullifierSeed = BigInt('2222129237572311751221168725011824235124166');
+    const nullifierSeed = BigInt("2222129237572311751221168725011824235124166");
 
     const args = await generateArgs({
       qrData: qrCode,
