@@ -22,7 +22,7 @@ export async function generateProof(qrCode: string, signal: string) {
   try {
     await init(anonAadhaarInitArgs);
 
-    const nullifierSeed = 2222129237572311751221168725011824235124166;
+    const nullifierSeed = BigInt('2222129237572311751221168725011824235124166');
 
     const args = await generateArgs({
       qrData: qrCode,
@@ -39,7 +39,10 @@ export async function generateProof(qrCode: string, signal: string) {
     console.log("args", args);
     const anonAadhaarCore = await prove(args);
     //
-    writeFile(join(__dirname, "proof.json"), JSON.stringify(anonAadhaarCore));
+    writeFile(
+      join(__dirname, "../../../../anon-aadhaar-contract/proof.json"),
+      JSON.stringify(anonAadhaarCore),
+    );
     return anonAadhaarCore;
   } catch (error) {
     console.error("An error occurred:", error);
@@ -48,4 +51,3 @@ export async function generateProof(qrCode: string, signal: string) {
 }
 
 //generateProof(`${process.env.QR_CODE}`, "1234532454678").then(console.log).catch(console.error);
-
