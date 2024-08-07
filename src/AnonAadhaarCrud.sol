@@ -4,40 +4,28 @@ pragma solidity ^0.8.19;
 import "../interfaces/IAnonAadhaar.sol";
 import "../interfaces/IAnonAadhaarCrud.sol";
 
-
 contract AnonAadhaarCrud is IAnonAadhaarCrud {
     address public anonAadhaarVerifierAddr;
 
     struct User {
+        address userAddress;
         uint nullifierSeed;
-        uint nullifier;
         uint[4] revealedData; // [ageAbove18, gender, state, pincode]
-        bool exists;
     }
 
-    mapping(address => User) public users;
+    mapping(uint => User) public usersByNullifier;
+    mapping(address => uint) public nullifierByAddress;
 
-    event UserAdded(address indexed userAddress, uint nullifier);
+    event UserAdded(address indexed userAddress, uint indexed nullifier);
 
     constructor(address _verifierAddr) {
-        // anonAadhaarVerifierAddr  should be the contract address
         anonAadhaarVerifierAddr = _verifierAddr;
     }
 
-    /// @dev Convert an address to uint256, used to check against signal.
-    /// @param _addr: msg.sender address.
-    /// @return Address msg.sender's address in uint256
     function addressToUint256(address _addr) private pure returns (uint256) {
         return uint256(uint160(_addr));
     }
 
-    /// @dev Add a user to the contract.
-    /// @param nullifierSeed: Nullifier Seed used while generating the proof.
-    /// @param nullifier: Nullifier for the user's Aadhaar data.
-    /// @param timestamp: Timestamp of when the QR code was signed.
-    /// @param signal: signal used while generating the proof, should be equal to msg.sender.
-    /// @param revealArray: Array of the values used as input for the proof generation.
-    /// @param groth16Proof: SNARK Groth16 proof.
     function addUser(
         uint nullifierSeed,
         uint nullifier,
@@ -47,12 +35,12 @@ contract AnonAadhaarCrud is IAnonAadhaarCrud {
         uint[8] memory groth16Proof
     ) public {
         require(
-            !users[msg.sender].exists,
-            '[AnonAadhaarIdentity]: User already exists'
+            usersByNullifier[nullifier].userAddress == address(0),
+            "AnonAadhaarIdentity: User already exists"
         );
         require(
             addressToUint256(msg.sender) == signal,
-            '[AnonAadhaarIdentity]: Wrong user signal sent.'
+            "AnonAadhaarIdentity: Wrong user signal sent"
         );
         require(
             IAnonAadhaar(anonAadhaarVerifierAddr).verifyAnonAadhaarProof(
@@ -63,29 +51,32 @@ contract AnonAadhaarCrud is IAnonAadhaarCrud {
                 revealArray,
                 groth16Proof
             ),
-            '[AnonAadhaarIdentity]: Proof sent is not valid.'
+            "AnonAadhaarIdentity: Proof sent is not valid"
         );
 
-        users[msg.sender] = User(nullifierSeed, nullifier, revealArray, true);
+        usersByNullifier[nullifier] = User(msg.sender, nullifierSeed, revealArray);
+        nullifierByAddress[msg.sender] = nullifier;
         emit UserAdded(msg.sender, nullifier);
     }
 
-    /// @dev Get user information.
-    /// @param userAddress: Address of the user to retrieve.
-    /// @
-    function getUser(address userAddress) public view returns (
+    function getUserByNullifier(uint nullifier) public view returns (
+        address userAddress,
         uint nullifierSeed,
-        uint nullifier,
         uint[4] memory revealedData
     ) {
-        require(
-            users[userAddress].exists,
-            '[AnonAadhaarIdentity]: User does not exist'
-        );
-        User memory user = users[userAddress];
-        
-        return (user.nullifierSeed, user.nullifier, user.revealedData);
-        
+        User memory user = usersByNullifier[nullifier];
+        require(user.userAddress != address(0), "AnonAadhaarIdentity: User does not exist");
+        return (user.userAddress, user.nullifierSeed, user.revealedData);
+    }
 
+    function getUserByAddress(address userAddress) public view returns (
+        uint nullifier,
+        uint nullifierSeed,
+        uint[4] memory revealedData
+    ) {
+        nullifier = nullifierByAddress[userAddress];
+        require(nullifier != 0, "AnonAadhaarIdentity: User does not exist");
+        User memory user = usersByNullifier[nullifier];
+        return (nullifier, user.nullifierSeed, user.revealedData);
     }
 }
