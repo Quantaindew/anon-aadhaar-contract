@@ -6,12 +6,12 @@ dotenv.config();
 const ABI = [
   {
     "inputs": [
-      {"internalType": "uint256", "name": "nullifierSeed", "type": "uint256"},
-      {"internalType": "uint256", "name": "nullifier", "type": "uint256"},
-      {"internalType": "uint256", "name": "timestamp", "type": "uint256"},
-      {"internalType": "uint256", "name": "signal", "type": "uint256"},
-      {"internalType": "uint256[4]", "name": "revealArray", "type": "uint256[4]"},
-      {"internalType": "uint256[8]", "name": "groth16Proof", "type": "uint256[8]"}
+      {"internalType": "uint", "name": "nullifierSeed", "type": "uint"},
+      {"internalType": "uint", "name": "nullifier", "type": "uint"},
+      {"internalType": "uint", "name": "timestamp", "type": "uint"},
+      {"internalType": "uint", "name": "signal", "type": "uint"},
+      {"internalType": "uint[4]", "name": "revealArray", "type": "uint[4]"},
+      {"internalType": "uint[8]", "name": "groth16Proof", "type": "uint[8]"}
     ],
     "name": "addUser",
     "outputs": [],
