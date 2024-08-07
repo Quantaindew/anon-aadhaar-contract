@@ -1,3 +1,4 @@
+//@ts-nocheck
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -7,11 +8,11 @@ import connectRoutes from "./routes/connectRoutes.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3222;
 
 app.use(
   cors({
-    //    origin: "http://example.com",
+    origin: "https://omelette-frontend.vercel.app",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
@@ -19,7 +20,8 @@ app.use(
 app.use(express.json());
 
 app.use("/api/proof", proofRoutes);
-app.use("/api/connect", connectRoutes);
+app.use("/api/connection", connectRoutes);
+app.use("/api/", (req,res)=>{return res.json({status:"OK"})});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
