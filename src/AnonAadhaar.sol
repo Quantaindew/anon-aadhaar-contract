@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import '../interfaces/IAnonAadhaarGroth16Verifier.sol';
 import '../interfaces/IAnonAadhaar.sol';

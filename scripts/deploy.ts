@@ -32,14 +32,14 @@ async function main() {
   // console.log(`AnonAadhaar contract deployed to ${_anonAadhaarAddress}`)
 
   const _anonAadhaarAddress = '0x7c8FfCbeDED64B9c39DB4321a113F0e56Bb75539'
-  const anonAadhaarCrud = await ethers.deployContract('AnonAadhaarCrud',[
+  const gaslessAnonAadhaarCrud = await ethers.deployContract('GaslessAnonAadhaarCrud',[
     _anonAadhaarAddress
 ])
 
-  await anonAadhaarCrud.waitForDeployment()
+  await gaslessAnonAadhaarCrud.waitForDeployment()
 
   console.log(
-    `AnonAadhaarCrud contract deployed to ${await anonAadhaarCrud.getAddress()}`,
+    `GaslessgaslessAnonAadhaarCrud contract deployed to ${await gaslessAnonAadhaarCrud.getAddress()}`,
   )
 }
 

@@ -18,7 +18,7 @@ const config: HardhatUserConfig = {
     //   accounts: [process.env.PRIVATE_KEY_SCROLL_SEPOLIA || ''],
     // },
   },
-  solidity: '0.8.19',
+  solidity: '0.8.20',
   paths: {
     sources: './src',
   },

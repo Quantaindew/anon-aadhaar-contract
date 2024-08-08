@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "../interfaces/IAnonAadhaar.sol";
-import "../interfaces/IAnonAadhaarCrud.sol";
+import "../interfaces/IGaslessAnonAadhaarCrud.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
@@ -23,9 +23,10 @@ contract GaslessAnonAadhaarCrud is IGaslessAnonAadhaarCrud, ReentrancyGuard {
     mapping(address => uint) public nullifierByAddress;
     mapping(bytes32 => bool) public executedTransactions;
 
-    event UserAdded(address indexed userAddress, uint indexed nullifier);
-    event RelayerAdded(address indexed relayer);
-    event RelayerRemoved(address indexed relayer);
+    // Remove duplicate event declarations
+    // event UserAdded(address indexed userAddress, uint indexed nullifier);
+    // event RelayerAdded(address indexed relayer);
+    // event RelayerRemoved(address indexed relayer);
 
     constructor(address _verifierAddr) {
         anonAadhaarVerifierAddr = _verifierAddr;
