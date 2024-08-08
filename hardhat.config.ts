@@ -1,7 +1,10 @@
-import { HardhatUserConfig } from 'hardhat/config'
-import '@nomicfoundation/hardhat-toolbox'
+import { HardhatUserConfig,vars } from 'hardhat/config';
+import '@nomicfoundation/hardhat-toolbox';
+import "@nomicfoundation/hardhat-verify";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config('./.env')
+
+const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 
 const config: HardhatUserConfig = {
   networks: {
@@ -21,6 +24,9 @@ const config: HardhatUserConfig = {
   solidity: '0.8.20',
   paths: {
     sources: './src',
+  },
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY,
   },
 }
 
