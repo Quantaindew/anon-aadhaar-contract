@@ -1,7 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 interface IGaslessAnonAadhaarCrud {
+    event UserAdded(address indexed userAddress, uint indexed nullifier);
+    event RelayerAdded(address indexed relayer);
+    event RelayerRemoved(address indexed relayer);
+
+    function addRelayer(address relayer) external;
+    function removeRelayer(address relayer) external;
+
     function addUserGasless(
         address userAddress,
         uint nullifierSeed,
@@ -26,16 +33,12 @@ interface IGaslessAnonAadhaarCrud {
         uint[4] memory revealedData
     );
 
-    function addRelayer(address relayer) external;
-
-    function removeRelayer(address relayer) external;
-
-    function authorizedRelayers(address relayer) external view returns (bool);
+    function getAllUsers() external view returns (
+        address[] memory userAddresses,
+        uint[] memory nullifiers,
+        uint[] memory nullifierSeeds,
+        uint[4][] memory revealedDataArray
+    );
 
     function withdraw(uint256 amount) external;
-
-    // Events
-    event UserAdded(address indexed userAddress, uint indexed nullifier);
-    event RelayerAdded(address indexed relayer);
-    event RelayerRemoved(address indexed relayer);
 }

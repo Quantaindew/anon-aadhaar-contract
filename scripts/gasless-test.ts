@@ -34,6 +34,25 @@ const ABI = [
     ],
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllUsers",
+    "outputs": [
+      {"internalType": "address[]", "name": "userAddresses", "type": "address[]"},
+      {"internalType": "uint256[]", "name": "nullifiers", "type": "uint256[]"},
+      {"internalType": "uint256[]", "name": "nullifierSeeds", "type": "uint256[]"},
+      {"internalType": "uint256[4][]", "name": "revealedDataArray", "type": "uint256[4][]"}
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "address", "name": "relayer", "type": "address"}],
+    "name": "authorizedRelayers",
+    "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+    "stateMutability": "view",
+    "type": "function"
   }
 ];
 
@@ -53,8 +72,17 @@ async function testGaslessAnonAadhaarIdentity() {
   console.log("User wallet address:", userWallet.address);
   console.log("Relayer wallet address:", relayerWallet.address);
 
-  const contractAddress = '0x238e5Fa0B3bE9f851AddbC6A3f92ac0566aB041a';
+  const contractAddress = '0xf74b84a12742235e6A3b312A0DFeFF7fba5955ce';
   const contract = new ethers.Contract(contractAddress, ABI, relayerWallet);
+
+  // Check if the relayer is authorized
+  const isAuthorized = await contract.authorizedRelayers(relayerWallet.address);
+  console.log(`Is relayer authorized? ${isAuthorized}`);
+
+  if (!isAuthorized) {
+    console.log("Relayer is not authorized. Please ensure the relayer has been added correctly.");
+    return;
+  }
 
   const nullifierSeed = proofData.proof.nullifierSeed;
   const nullifier = proofData.proof.nullifier;
@@ -107,6 +135,15 @@ async function testGaslessAnonAadhaarIdentity() {
     // Fetch and log user data
     const getUserData = await contract.getUserByAddress(userWallet.address);
     console.log('User data:', getUserData);
+
+    // Fetch and log all users
+    const allUsers = await contract.getAllUsers();
+    console.log('All users:');
+    console.log('User Addresses:', allUsers.userAddresses);
+    console.log('Nullifiers:', allUsers.nullifiers);
+    console.log('Nullifier Seeds:', allUsers.nullifierSeeds);
+    console.log('Revealed Data:', allUsers.revealedDataArray);
+
   } catch (error) {
     console.error('Error:', error);
   }

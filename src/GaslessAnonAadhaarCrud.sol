@@ -23,10 +23,7 @@ contract GaslessAnonAadhaarCrud is IGaslessAnonAadhaarCrud, ReentrancyGuard {
     mapping(address => uint) public nullifierByAddress;
     mapping(bytes32 => bool) public executedTransactions;
 
-    // Remove duplicate event declarations
-    // event UserAdded(address indexed userAddress, uint indexed nullifier);
-    // event RelayerAdded(address indexed relayer);
-    // event RelayerRemoved(address indexed relayer);
+    uint[] public allNullifiers;
 
     constructor(address _verifierAddr) {
         anonAadhaarVerifierAddr = _verifierAddr;
@@ -96,6 +93,7 @@ contract GaslessAnonAadhaarCrud is IGaslessAnonAadhaarCrud, ReentrancyGuard {
         usersByNullifier[nullifier] = User(userAddress, nullifierSeed, revealArray);
         nullifierByAddress[userAddress] = nullifier;
         executedTransactions[txHash] = true;
+        allNullifiers.push(nullifier);
         emit UserAdded(userAddress, nullifier);
     }
 
@@ -118,6 +116,30 @@ contract GaslessAnonAadhaarCrud is IGaslessAnonAadhaarCrud, ReentrancyGuard {
         require(nullifier != 0, "AnonAadhaarIdentity: User does not exist");
         User memory user = usersByNullifier[nullifier];
         return (nullifier, user.nullifierSeed, user.revealedData);
+    }
+
+    function getAllUsers() public view returns (
+        address[] memory userAddresses,
+        uint[] memory nullifiers,
+        uint[] memory nullifierSeeds,
+        uint[4][] memory revealedDataArray
+    ) {
+        uint userCount = allNullifiers.length;
+        userAddresses = new address[](userCount);
+        nullifiers = new uint[](userCount);
+        nullifierSeeds = new uint[](userCount);
+        revealedDataArray = new uint[4][](userCount);
+
+        for (uint i = 0; i < userCount; i++) {
+            uint nullifier = allNullifiers[i];
+            User memory user = usersByNullifier[nullifier];
+            userAddresses[i] = user.userAddress;
+            nullifiers[i] = nullifier;
+            nullifierSeeds[i] = user.nullifierSeed;
+            revealedDataArray[i] = user.revealedData;
+        }
+
+        return (userAddresses, nullifiers, nullifierSeeds, revealedDataArray);
     }
 
     function addressToUint256(address _addr) private pure returns (uint256) {
