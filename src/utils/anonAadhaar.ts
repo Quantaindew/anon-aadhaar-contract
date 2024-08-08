@@ -41,7 +41,7 @@ export async function generateProof(qrCode: string, signal: string) {
     const anonAadhaarCore = await prove(args);
     //
     writeFile(
-      join(__dirname, "../../../../anon-aadhaar-contract/proof.json"),
+      join(__dirname, "../../../anon-aadhaar-contract/proof.json"),
       JSON.stringify(anonAadhaarCore),
     );
     return anonAadhaarCore;
