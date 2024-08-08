@@ -5,6 +5,7 @@ import "@nomicfoundation/hardhat-verify";
 require('dotenv').config('./.env')
 
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
+const POLYGONSCAN_API_KEY = vars.get("POLYGONSCAN_API_KEY");
 
 const config: HardhatUserConfig = {
   networks: {
@@ -36,7 +37,17 @@ const config: HardhatUserConfig = {
     sources: './src',
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+    apiKey: { amoy:POLYGONSCAN_API_KEY},
+    customChains: [
+      {
+        network: "amoy",
+        chainId: 80002,
+        urls: {
+          apiURL: "https://api-amoy.polygonscan.com/api",
+          browserURL: "https://amoy.polygonscan.com/"
+        }
+      }
+    ]
   }
 }
 
