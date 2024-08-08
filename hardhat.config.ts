@@ -16,18 +16,29 @@ const config: HardhatUserConfig = {
       url: `https://sepolia.infura.io/v3/${process.env.API_KEY_SEPOLIA}`,	
       accounts: [process.env.PRIVATE_KEY_SEPOLIA || ''],
     },
+    amoy:{
+      url: `https://polygon-amoy.infura.io/v3/${process.env.API_KEY_AMOY}`,
+      accounts: [process.env.PRIVATE_KEY_AMOY || ''],
+    },
+    cardona: {
+      url: `https://rpc.ankr.com/polygon_zkevm_cardona`,
+      accounts: [process.env.PRIVATE_KEY_CARDONA || ''],
+   
+    },
     // scrollSepolia: {
     //   url: `https://sepolia-rpc.scroll.io/`,
     //   accounts: [process.env.PRIVATE_KEY_SCROLL_SEPOLIA || ''],
     // },
   },
+  
   solidity: '0.8.20',
   paths: {
     sources: './src',
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
-  },
+  }
 }
+
 
 export default config
