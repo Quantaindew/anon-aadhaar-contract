@@ -115,6 +115,9 @@ async function testGaslessAnonAadhaarIdentity() {
   // Sign the message
   const signature = await userWallet.signMessage(ethers.getBytes(messageHash));
 
+  console.log('Message hash:', messageHash);
+  console.log('Signature:', signature);
+
   try {
     console.log('Adding user gasless...');
     const tx = await contract.addUserGasless(
