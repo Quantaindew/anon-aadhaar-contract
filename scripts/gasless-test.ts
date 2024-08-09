@@ -60,7 +60,7 @@ async function testGaslessAnonAadhaarIdentity() {
   const proofPath = 'proof.json';
   const proofData = JSON.parse(fs.readFileSync(proofPath, 'utf8'));
 
-  const provider = new ethers.JsonRpcProvider(`https://sepolia.infura.io/v3/${process.env.API_KEY_SEPOLIA}`);
+  const provider = new ethers.JsonRpcProvider(`https://polygon-amoy.infura.io/v3/${process.env.API_KEY_AMOY}`);
   const userPrivateKey = process.env.PRIVATE_KEY;
   const relayerPrivateKey = process.env.PRIVATE_KEY_SEPOLIA;
   if (!userPrivateKey || !relayerPrivateKey) {
@@ -72,7 +72,7 @@ async function testGaslessAnonAadhaarIdentity() {
   console.log("User wallet address:", userWallet.address);
   console.log("Relayer wallet address:", relayerWallet.address);
 
-  const contractAddress = '0xf74b84a12742235e6A3b312A0DFeFF7fba5955ce';
+  const contractAddress = '0x1e0F5B806D70F7BEf0e1bB9338347746b3a875e4';
   const contract = new ethers.Contract(contractAddress, ABI, relayerWallet);
 
   // Check if the relayer is authorized
