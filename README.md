@@ -11,3 +11,5 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.ts
 ```
+CONTRACT ADDRESS:
+https://amoy.polygonscan.com/address/0x1e0F5B806D70F7BEf0e1bB9338347746b3a875e4#code
