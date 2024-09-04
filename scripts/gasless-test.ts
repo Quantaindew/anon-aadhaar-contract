@@ -60,7 +60,7 @@ async function testGaslessAnonAadhaarIdentity() {
   const proofPath = 'proof.json';
   const proofData = JSON.parse(fs.readFileSync(proofPath, 'utf8'));
 
-  const provider = new ethers.JsonRpcProvider(`https://polygon-amoy.infura.io/v3/${process.env.API_KEY_AMOY}`);
+  const provider = new ethers.JsonRpcProvider(`https://linea-sepolia.infura.io/v3/${process.env.API_KEY_LINEA_SEPOLIA}`);
   const userPrivateKey = process.env.PRIVATE_KEY;
   const relayerPrivateKey = process.env.PRIVATE_KEY_SEPOLIA;
   if (!userPrivateKey || !relayerPrivateKey) {

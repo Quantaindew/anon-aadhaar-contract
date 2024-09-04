@@ -21,26 +21,26 @@ if (process.env.PRODUCTION_KEY === 'true') {
 
 
 async function main() {
-  // const verifier = await ethers.deployContract('Verifier')
-  // await verifier.waitForDeployment()
+  const verifier = await ethers.deployContract('Verifier')
+  await verifier.waitForDeployment()
 
-  // const _verifierAddress = await verifier.getAddress()
-  // testJson.verifier = _verifierAddress
+  const _verifierAddress = await verifier.getAddress()
+  testJson.verifier = _verifierAddress
   
 
-  // console.log(`Verifier contract deployed to ${_verifierAddress}`)
+  console.log(`Verifier contract deployed to ${_verifierAddress}`)
 
-  // const anonAadhaar = await ethers.deployContract('AnonAadhaar', [
-  //   _verifierAddress,
-  //   publicKeyHash,
-  // ])
+  const anonAadhaar = await ethers.deployContract('AnonAadhaar', [
+    _verifierAddress,
+    publicKeyHash,
+  ])
 
-  //  await anonAadhaar.waitForDeployment()
-  //  const _anonAadhaarAddress = await anonAadhaar.getAddress()
-  // testJson.anonAadhaar = _anonAadhaarAddress
-  // console.log(`AnonAadhaar contract deployed to ${_anonAadhaarAddress}`)
+   await anonAadhaar.waitForDeployment()
+   const _anonAadhaarAddress = await anonAadhaar.getAddress()
+  testJson.anonAadhaar = _anonAadhaarAddress
+  console.log(`AnonAadhaar contract deployed to ${_anonAadhaarAddress}`)
 
- const _anonAadhaarAddress = '0xAE7a6696a6b629286c3A62D205838eb864dB6443'
+//const _anonAadhaarAddress = '0xAE7a6696a6b629286c3A62D205838eb864dB6443'
   const gaslessAnonAadhaarCrud = await ethers.deployContract('GaslessAnonAadhaarCrud',[
     _anonAadhaarAddress
 ])

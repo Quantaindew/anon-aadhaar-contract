@@ -38,7 +38,7 @@ async function testAnonAadhaarIdentity() {
   const proofPath = 'proof.json';
   const proofData = JSON.parse(fs.readFileSync(proofPath, 'utf8'));
 
-  const provider = new ethers.JsonRpcProvider(`https://sepolia.infura.io/v3/${process.env.API_KEY_SEPOLIA}`);
+  const provider = new ethers.JsonRpcProvider(`https://linea-sepolia.infura.io/v3/${process.env.API_KEY_LINEA_SEPOLIA}`);
   const privateKey = process.env.PRIVATE_KEY;
   if (!privateKey) {
     throw new Error("Private key not found in .env file");

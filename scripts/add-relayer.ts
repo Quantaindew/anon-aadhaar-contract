@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 
 async function main() {
   // Explicitly connect to the Amoy network
-  const provider = new ethers.JsonRpcProvider(`https://polygon-amoy.infura.io/v3/${process.env.API_KEY_AMOY}`);
+  const provider = new ethers.JsonRpcProvider(`https://linea-sepolia.infura.io/v3/${process.env.API_KEY_LINEA_SEPOLIA}`);
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY_AMOY || '', provider);
 
   const contractAddress = "0x1e0F5B806D70F7BEf0e1bB9338347746b3a875e4"; // Your deployed contract address on Amoy
